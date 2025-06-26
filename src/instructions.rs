@@ -1,4 +1,5 @@
-use borsh::{BorshDeserialize, BorshSerialize};
+use borsh::{BorshDeserialize,ser:: BorshSerialize};
+use borsh_derive::BorshSerialize;
 use solana_program::{program_error::ProgramError, pubkey::Pubkey, msg};
 
 #[derive(BorshDeserialize, BorshSerialize, Debug, Clone, Copy)]

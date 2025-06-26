@@ -1,6 +1,3 @@
-// use std::fmt::format;
-use borsh::{BorshSerialize};
-use borsh::{BorshDeserialize};
 use std::io::{self, Write};
 use std::time::Instant;
 use token_tranfer::instructions::TransferIx;
@@ -21,14 +18,12 @@ use {
 
 #[tokio::test]
 async fn tf_success() {
-    // let system_program = Pubkey::from_str("11111111111111111111111111111111").unwrap();
-
     let mut amt = String::new();
     println!("How much SOL do you want to send? ");
     io::stdout().flush().unwrap();
-    io::stdin()
-        .read_line(&mut amt)
-        .map_err(|_| format!("could not get amount"));
+    let _ = io::stdin()
+        .read_line(&mut amt).expect("Could not get amount");
+        // .map_err(|_| format!("could not get amount"));
     let amount = amt.trim().parse::<u64>().expect("INvalid input for amount");
 
     let program_id = Pubkey::new_unique();
@@ -152,7 +147,7 @@ async fn tf_success() {
 
     let ix_data = TransferIx { amount };
 
-    let serialized_data = ix_data.try_to_vec().unwrap();
+    let serialized_data = borsh::to_vec(&ix_data).unwrap();
 
     let ix_with_bincode = Instruction::new_with_bytes(
         // This is for borsh serialization

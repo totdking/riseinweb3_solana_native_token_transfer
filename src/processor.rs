@@ -64,6 +64,4 @@ pub fn process_instruction(
 
     msg!("Token transfer processing");
     invoke_signed(&ix, &accounts, &[&[b"authority", &[bump_seed]]])
-    
-
 }
